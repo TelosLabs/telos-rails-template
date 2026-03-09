@@ -2,6 +2,8 @@ FROM ruby:4.0.0
 
 ARG TZ
 ENV TZ="$TZ"
+ARG CLAUDE_INSTALLER_URL="https://claude.ai/install.sh"
+ARG CLAUDE_INSTALLER_SHA256="431889ac7d056f636aaf5b71524666d04c89c45560f80329940846479d484778"
 
 # Install basic development tools, iptables/ipset, and Rails dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -9,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   git \
   procps \
   sudo \
+  locales \
   fzf \
   zsh \
   man-db \
@@ -28,6 +31,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libvips-dev \
   curl \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+  locale-gen && \
+  update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 # Create non-root user
 ARG USERNAME=developer
@@ -64,6 +71,8 @@ USER $USERNAME
 ENV SHELL=/bin/zsh
 ENV EDITOR=nano
 ENV VISUAL=nano
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 ENV PATH="/home/developer/.local/bin:$PATH"
 
 # Install zsh with plugins
@@ -77,7 +86,10 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
   -x
 
 # Install Claude Code via native installer
-RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN curl -fsSL "$CLAUDE_INSTALLER_URL" -o /tmp/claude-install.sh && \
+  echo "$CLAUDE_INSTALLER_SHA256  /tmp/claude-install.sh" | sha256sum -c - && \
+  bash /tmp/claude-install.sh && \
+  rm /tmp/claude-install.sh
 
 # Copy and set up firewall script
 COPY init-firewall.sh /usr/local/bin/
