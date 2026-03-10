@@ -63,6 +63,7 @@ group :development, :test do
   gem "shoulda-matchers"
 
   # Linting
+  gem "rubocop-harness", github: "TelosLabs/rubocop-harness", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
