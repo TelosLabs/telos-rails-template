@@ -72,7 +72,6 @@ jobs:
   e2e:
     name: E2E
     runs-on: ubuntu-latest
-    if: ${{ secrets.OPENAI_API_KEY != '' }}
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
@@ -82,17 +81,30 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+      - name: Check OpenAI key
+        id: openai_key
+        run: |
+          if [ -n "$OPENAI_API_KEY" ]; then
+            echo "has_key=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_key=false" >> "$GITHUB_OUTPUT"
+            echo "OPENAI_API_KEY is not configured; skipping E2E run."
+          fi
       - name: Setup Node.js
+        if: steps.openai_key.outputs.has_key == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "22"
       - name: Install agent-tests dependencies
+        if: steps.openai_key.outputs.has_key == 'true'
         run: npm install
         working-directory: agent-tests
       - name: Install Playwright Chromium
+        if: steps.openai_key.outputs.has_key == 'true'
         run: npx playwright install chromium --with-deps
         working-directory: agent-tests
       - name: Run E2E tests
+        if: steps.openai_key.outputs.has_key == 'true'
         run: bin/e2e
       - name: Upload failure screenshots
         if: failure()
