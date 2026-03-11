@@ -1,4 +1,4 @@
-import { client, BASE_URL, MODEL, QA_EMAIL, QA_PASSWORD } from "./config.js";
+import { client, BASE_URL, MODEL } from "./config.js";
 
 const MAX_RETRIES = 4;
 
@@ -49,10 +49,6 @@ export async function decideNextAction({ goal, snapshot, history, previousUrl })
       * If there's a confirmation link/button, click it.
       * If there's a confirmation code or token, copy it, navigate back to the app, and enter it in the appropriate field.
       * If there are other instructions, follow them accordingly.
-
-    Login credentials:
-    - email: ${QA_EMAIL}
-    - password: ${QA_PASSWORD}
 
     Current page:
     - title: ${snapshot.title}

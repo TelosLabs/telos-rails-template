@@ -24,9 +24,6 @@ sleep 1
 echo "==> Preparing test database..."
 bin/rails db:test:prepare
 
-echo "==> Seeding test database..."
-bin/rails db:seed
-
 echo "==> Compiling assets..."
 bin/rails tailwindcss:build
 

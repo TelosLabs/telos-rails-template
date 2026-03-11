@@ -74,7 +74,7 @@ RubyCritic scores are driven by three tools:
 
 **What it does:** An OpenAI agent drives a real Chromium browser via Playwright to execute natural-language test cases defined in `agent-tests/tests.md`. The agent reads the page, decides what to click/fill/navigate, and reports pass/fail.
 
-**How it runs:** `bin/e2e` prepares the test database, seeds the QA user, compiles assets, boots a Rails server on port 3001, runs the agent, and cleans up.
+**How it runs:** `bin/e2e` prepares the test database, compiles assets, boots a Rails server on port 3001, runs the agent, and cleans up.
 
 **Common failures:**
 - **Agent keeps failing on email confirmation** — Verify `letter_opener_web` is configured. Visit `http://localhost:3000/letter_opener` in development to check.
