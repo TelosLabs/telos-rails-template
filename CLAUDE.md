@@ -7,6 +7,7 @@ bin/setup    # Install deps, prepare DB
 bin/dev      # Start all processes
 bin/test     # Run RSpec
 bin/lint     # RuboCop + Brakeman + bundle-audit
+bin/e2e      # AI-powered E2E tests (Playwright + OpenAI)
 bin/ci       # Full local CI → generates ci_summary.md
 bin/smoke    # Quick boot + DB + routes check
 ```

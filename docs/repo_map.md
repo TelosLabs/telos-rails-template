@@ -22,7 +22,7 @@ Where things live and what they do.
 | `db/` | Migrations and schema (SQLite3) |
 | `spec/` | RSpec tests — request specs, model specs, service specs |
 | `docs/` | Project documentation (patterns, architecture, decisions) |
-| `e2e/` | End-to-end tests (Station C — Playwright) |
+| `agent-tests/` | AI-powered E2E tests — Playwright + OpenAI agent (agent_e2e) |
 
 ## Key Files
 
@@ -48,4 +48,4 @@ Where things live and what they do.
 | `bin/lint` | Check code style + security before committing |
 | `bin/ci` | Full local CI — run before pushing to confirm everything passes |
 | `bin/smoke` | Quick sanity check — app boots, DB connects, routes load |
-| `bin/e2e` | End-to-end tests (stub until Station C) |
+| `bin/e2e` | Run AI-powered E2E tests (boots server, runs agent, cleans up) |

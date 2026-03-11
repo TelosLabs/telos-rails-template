@@ -9,7 +9,7 @@ Run `bin/ci` locally before pushing. It runs the same checks as `.github/workflo
 | **Lint** | RuboCop | Code style, method/class size, complexity |
 | **Security** | Brakeman + bundle-audit + importmap audit | Vulnerabilities in code and dependencies |
 | **Test** | RSpec | Unit, request, and model specs |
-| **E2E** | Playwright (Station C) | End-to-end browser tests |
+| **E2E** | agent_e2e (Playwright + OpenAI) | AI-driven end-to-end browser tests |
 
 ## Fixing Failures
 
@@ -70,6 +70,18 @@ RubyCritic scores are driven by three tools:
 - **Factory issues** — Check `spec/factories/` for missing or outdated factory definitions.
 - **Database state** — Use `let` (lazy) and `before` blocks. Avoid `let!` unless ordering matters.
 
-### E2E
+### E2E (agent_e2e)
 
-**Stub until Station C is implemented.** Will run Playwright browser tests against the running app.
+**What it does:** An OpenAI agent drives a real Chromium browser via Playwright to execute natural-language test cases defined in `agent-tests/tests.md`. The agent reads the page, decides what to click/fill/navigate, and reports pass/fail.
+
+**How it runs:** `bin/e2e` prepares the test database, seeds the QA user, compiles assets, boots a Rails server on port 3001, runs the agent, and cleans up.
+
+**Common failures:**
+- **Agent keeps failing on email confirmation** — Verify `letter_opener_web` is configured. Visit `http://localhost:3000/letter_opener` in development to check.
+- **Tests time out** — Increase `MAX_STEPS` or `ACTION_TIMEOUT` in `.env`. Complex flows may need more steps.
+- **Agent clicks wrong elements** — Add `data-testid` attributes to ambiguous UI elements.
+- **Asset compilation issues** — Check that `bin/rails tailwindcss:build` runs successfully.
+
+**Config:** Test cases in `agent-tests/tests.md`. Environment variables: `OPENAI_API_KEY`, `AI_MODEL` (default: gpt-5.1), `MAX_STEPS` (default: 25), `ACTION_TIMEOUT` (default: 8000ms).
+
+**Requires:** `OPENAI_API_KEY` environment variable. In CI, this must be set as a repository secret.
