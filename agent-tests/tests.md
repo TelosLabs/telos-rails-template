@@ -1,0 +1,1 @@
+- From the home page, click "Sign in" and verify the login page loads.

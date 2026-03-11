@@ -33,13 +33,15 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
-  # Tell Action Mailer not to deliver emails to the real world.
-  # The :test delivery method accumulates sent emails in the
-  # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
-
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # Use letter_opener_web for E2E tests (agent_e2e reads emails via /letter_opener).
+  # Regular RSpec tests use :test delivery so ActionMailer::Base.deliveries works.
+  if ENV["E2E"].present?
+    config.action_mailer.delivery_method = :letter_opener_web
+    config.action_mailer.default_url_options = { host: "localhost", port: ENV.fetch("PORT", 3001).to_i }
+  else
+    config.action_mailer.delivery_method = :test
+    config.action_mailer.default_url_options = { host: "example.com" }
+  end
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

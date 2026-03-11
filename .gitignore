@@ -36,3 +36,8 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Agent E2E tests
+/agent-tests/node_modules
+/agent-tests/failures.md
+/agent-tests/screenshots

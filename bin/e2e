@@ -1,6 +1,51 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env sh
+set -e
 
-echo "E2E tests not yet configured (Station C)."
-echo "This is a placeholder — exiting successfully."
-exit 0
+export PORT="${PORT:-3001}"
+export RAILS_ENV=test
+export E2E=1
+export BASE_URL="http://localhost:$PORT"
+export WEB_CONCURRENCY=0
+
+cleanup() {
+  echo "==> Stopping server..."
+  kill $SERVER_PID 2>/dev/null
+  wait $SERVER_PID 2>/dev/null || true
+  lsof -ti:"$PORT" | xargs kill -9 2>/dev/null || true
+  echo "==> Resetting test database..."
+  RAILS_ENV=test bin/rails db:drop
+}
+trap cleanup EXIT
+
+echo "==> Killing any existing process on port $PORT..."
+lsof -ti:"$PORT" | xargs kill -9 2>/dev/null || true
+sleep 1
+
+echo "==> Preparing test database..."
+bin/rails db:test:prepare
+
+echo "==> Compiling assets..."
+bin/rails tailwindcss:build
+
+echo "==> Starting test server on port $PORT..."
+bin/rails server -p "$PORT" &
+SERVER_PID=$!
+
+echo "==> Waiting for server..."
+WAIT=0
+MAX_WAIT=60
+until curl -sf -o /dev/null "http://localhost:$PORT" 2>/dev/null; do
+  WAIT=$((WAIT + 2))
+  if [ "$WAIT" -ge "$MAX_WAIT" ]; then
+    echo "==> ERROR: Server did not start within ${MAX_WAIT}s"
+    kill $SERVER_PID 2>/dev/null
+    exit 1
+  fi
+  printf "  waiting... (%ss)\n" "$WAIT"
+  sleep 2
+done
+sleep 3
+echo "==> Server ready!"
+
+echo "==> Running agent tests..."
+(cd agent-tests && node agent.js)

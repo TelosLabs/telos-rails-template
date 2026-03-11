@@ -42,3 +42,10 @@ Append-only. Add new decisions at the bottom.
 **Context:** Business logic needs a consistent home outside of controllers and models. Fat models and fat controllers both lead to maintenance problems.
 **Decision:** All business logic goes in service objects in `app/services/`. Two patterns: `call` (returns data) and `save` (persists, returns boolean).
 **Consequences:** Controllers stay thin. Models focus on persistence. Services are independently testable. New developers have a clear place to put logic.
+
+### DEC-005: agent_e2e for AI-powered E2E testing
+**Date:** 2026-03-11
+**Status:** Accepted
+**Context:** E2E tests were a placeholder ("Station C"). Traditional selector-based E2E tests are brittle and expensive to maintain. The agent_e2e gem uses an OpenAI agent to drive a real Chromium browser via Playwright, executing natural-language test cases.
+**Decision:** Use agent_e2e (TelosLabs/agent_e2e) for E2E testing. Test cases are written as plain English in `agent-tests/tests.md`. The agent reads pages, decides actions, and reports pass/fail — no CSS selectors to maintain. Uses `letter_opener_web` for email flow testing.
+**Consequences:** E2E tests are easier to write (plain English) and more resilient to UI changes. Requires an `OPENAI_API_KEY` to run. CI needs the key as a secret. Tests are non-deterministic by nature — the AI agent may occasionally make different decisions. Add `data-testid` attributes to interactive elements for reliability.

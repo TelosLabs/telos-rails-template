@@ -62,6 +62,9 @@ group :development, :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
 
+  # AI-powered E2E testing with Playwright + OpenAI [https://github.com/TelosLabs/agent_e2e]
+  gem "agent_e2e", github: "TelosLabs/agent_e2e"
+
   # Linting
   gem "rubocop-harness", github: "TelosLabs/rubocop-harness", require: false
   gem "rubocop-performance", require: false
