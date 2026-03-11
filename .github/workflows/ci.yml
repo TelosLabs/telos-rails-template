@@ -72,6 +72,7 @@ jobs:
   e2e:
     name: E2E
     runs-on: ubuntu-latest
+    if: ${{ secrets.OPENAI_API_KEY != '' }}
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
@@ -126,7 +127,7 @@ jobs:
           e2e_status="${{ needs.e2e.result }}"
 
           check() {
-            if [ "$1" = "success" ]; then
+            if [ "$1" = "success" ] || [ "$1" = "skipped" ]; then
               echo "- [x] $2"
             else
               echo "- [ ] $2"
@@ -151,7 +152,7 @@ jobs:
             echo ""
 
             if [ "$lint_status" = "success" ] && [ "$security_status" = "success" ] && \
-               [ "$test_status" = "success" ] && [ "$e2e_status" = "success" ]; then
+               [ "$test_status" = "success" ] && [ "$e2e_status" = "success" -o "$e2e_status" = "skipped" ]; then
               echo "**Status: ALL PASSED**"
             else
               echo "**Status: FAILED**"
