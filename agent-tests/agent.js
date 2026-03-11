@@ -114,7 +114,7 @@ async function run() {
 
   console.log(`\n🚀 Running ${testCases.length} test case(s)...\n`);
 
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: process.env.CI === "true" });
   const results = [];
 
   for (let i = 0; i < testCases.length; i++) {
