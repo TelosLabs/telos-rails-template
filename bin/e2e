@@ -21,6 +21,9 @@ echo "==> Killing any existing process on port $PORT..."
 lsof -ti:"$PORT" | xargs kill -9 2>/dev/null || true
 sleep 1
 
+echo "==> Installing agent-tests dependencies..."
+(cd agent-tests && npm install && npx playwright install --with-deps chromium)
+
 echo "==> Preparing test database..."
 bin/rails db:test:prepare
 
