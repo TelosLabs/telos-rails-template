@@ -16,4 +16,12 @@ module Authenticatable
   def after_sign_out_path_for(_resource_or_scope)
     new_user_session_path
   end
+
+  def authenticate_admin_user!
+    authenticate_user!
+    return if current_user&.admin?
+
+    flash[:alert] = t("flash.unauthorized")
+    redirect_to(root_path)
+  end
 end

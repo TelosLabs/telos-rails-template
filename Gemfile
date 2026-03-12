@@ -27,6 +27,12 @@ gem "devise"
 # Authorization [https://github.com/palkan/action_policy]
 gem "action_policy"
 
+# Admin interface [https://activeadmin.info]
+gem "activeadmin"
+
+# Environment variables [https://github.com/bkeepers/dotenv]
+gem "dotenv-rails", groups: [:development, :test]
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:windows, :jruby]
 
