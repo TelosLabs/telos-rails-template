@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/TelosLabs/rubocop-harness.git
-  revision: 81c6bf0bb274c240c19bc1771e370865ed8450b3
+  revision: e737028fad106ecb84e291b37889b80f4315344c
   specs:
     rubocop-harness (0.2.0)
       lint_roller (~> 1.1)
