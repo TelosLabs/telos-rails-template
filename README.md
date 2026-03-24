@@ -58,7 +58,7 @@ See `docs/patterns.md` for detailed conventions.
 
 ## CI
 
-Run `bin/ci` locally before pushing. It runs linting, security checks, tests, and e2e checks, then generates a `ci_summary.md` report.
+Run `bin/ci` locally before pushing. It runs linting, security checks, code quality (RubyCritic), and tests, then generates a `ci_summary.md` report.
 
 ## Claude Code
 

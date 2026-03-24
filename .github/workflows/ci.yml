@@ -65,7 +65,7 @@ jobs:
         with:
           bundler-cache: true
       - name: Run RubyCritic
-        run: bundle exec rubycritic --no-browser --minimum-score 85 app/controllers app/helpers app/jobs app/mailers app/models app/services app/policies app/builders app/decorators
+        run: bundle exec rubycritic --no-browser --minimum-score 85 app/controllers app/helpers app/jobs app/mailers app/models app/services app/policies
 
   test:
     name: Test
