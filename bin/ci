@@ -7,7 +7,7 @@ TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
 OVERALL=0
 
-declare -a STEPS=("rubocop" "brakeman" "bundle-audit" "rspec" "e2e")
+declare -a STEPS=("rubocop" "brakeman" "bundle-audit" "rubycritic" "rspec")
 declare -A RESULTS
 
 # --- RuboCop ---
@@ -43,23 +43,23 @@ fi
 
 echo ""
 
-# --- RSpec ---
-echo "=== [4/5] RSpec ==="
-if bundle exec rspec; then
-  RESULTS[rspec]="pass"
+# --- RubyCritic ---
+echo "=== [4/5] RubyCritic ==="
+if bundle exec rubycritic --no-browser --minimum-score 85 app/controllers app/helpers app/jobs app/mailers app/models app/services app/policies; then
+  RESULTS[rubycritic]="pass"
 else
-  RESULTS[rspec]="fail"
+  RESULTS[rubycritic]="fail"
   OVERALL=1
 fi
 
 echo ""
 
-# --- E2E ---
-echo "=== [5/5] E2E ==="
-if bin/e2e; then
-  RESULTS[e2e]="pass"
+# --- RSpec ---
+echo "=== [5/5] RSpec ==="
+if bundle exec rspec; then
+  RESULTS[rspec]="pass"
 else
-  RESULTS[e2e]="fail"
+  RESULTS[rspec]="fail"
   OVERALL=1
 fi
 

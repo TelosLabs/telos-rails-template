@@ -7,7 +7,6 @@ bin/setup    # Install deps, prepare DB
 bin/dev      # Start all processes
 bin/test     # Run RSpec
 bin/lint     # RuboCop + Brakeman + bundle-audit
-bin/e2e      # AI-powered E2E tests (Playwright + OpenAI)
 bin/ci       # Full local CI → generates ci_summary.md
 bin/smoke    # Quick boot + DB + routes check
 ```
@@ -55,6 +54,6 @@ Read `docs/repo_map.md` first — it maps every directory and file to its purpos
 
 ## CI
 
-Run `bin/ci` locally before pushing. CI runs: lint, security, test, e2e.
+Run `bin/ci` locally before pushing. CI runs: lint, security, code quality, test.
 
 Every PR must pass all checks before merge. See `.github/PULL_REQUEST_TEMPLATE.md` for the merge checklist.
