@@ -62,14 +62,29 @@ Run `bin/ci` locally before pushing. It runs linting, security checks, code qual
 
 ## Claude Code
 
-The team uses a shared Claude Code configuration from the [claude-config](https://github.com/TelosLabs/claude-config) repo for AI-assisted development. This provides slash commands and tooling:
+The team uses a shared Claude Code configuration from the [claude-config](https://github.com/TelosLabs/claude-config) repo. Run `./install.sh` there to get slash commands, coding standards, and plugins.
 
-- `/plan` -- generate an implementation plan
-- `/fix` -- diagnose and fix issues
-- `/ship` -- prepare changes for review
-- `/review` -- multi-pass code review
+### Plugins
 
-See the [claude-config README](https://github.com/TelosLabs/claude-config) for setup instructions.
+This project's `.claude/settings.json` configures three required plugins. Claude Code prompts you to install them when you first trust this folder.
+
+| Plugin | Purpose |
+|--------|---------|
+| [Superpowers](https://github.com/obra/superpowers-marketplace) | Planning, TDD, debugging, verification, code review, parallel agents |
+| [Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin) | Multi-agent review, research-grounded planning, frontend design, CI fixing, browser testing |
+| [Layered Rails](https://github.com/palkan/skills) | Rails architecture review and layered design patterns |
+
+### Key commands
+
+| Command | What it does |
+|---------|-------------|
+| `/fix` | Diagnose and fix bugs following Telos standards |
+| `/ship` | Commit, push, and open a PR in one shot |
+| `/verify` | End-to-end validation before shipping |
+| `/uiqa` | Visual QA in a real browser |
+| `/map-codebase` | Generate AGENTS.md for this project |
+
+For planning, code review, frontend design, and CI fixes, use the plugin skills directly (e.g., `ce-plan`, `ce-review`, `frontend-design`, `fix-ci`). See the [claude-config README](https://github.com/TelosLabs/claude-config) for the full list.
 
 ## Worktrees
 
