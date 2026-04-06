@@ -70,8 +70,3 @@ RubyCritic scores are driven by three tools:
 - **Factory issues** — Check `spec/factories/` for missing or outdated factory definitions.
 - **Database state** — Use `let` (lazy) and `before` blocks. Avoid `let!` unless ordering matters.
 
-### E2E (agent_e2e) — Local Only
-
-E2E tests are not part of the CI pipeline (too expensive due to OpenAI API calls). Run them locally with `bin/e2e`.
-
-**Config:** Test cases in `agent-tests/tests.md`. Requires `OPENAI_API_KEY` environment variable.

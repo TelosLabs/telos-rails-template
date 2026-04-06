@@ -45,7 +45,7 @@ Append-only. Add new decisions at the bottom.
 
 ### DEC-005: agent_e2e for AI-powered E2E testing
 **Date:** 2026-03-11
-**Status:** Accepted
+**Status:** Superseded (2026-04-03) — replaced by agent-native browser tools (`/uiqa`, `/gstack-qa`, `/test-browser`) which leverage the coding agent's built-in Playwright/Chrome integration without requiring a separate gem or OpenAI API key.
 **Context:** E2E tests were a placeholder ("Station C"). Traditional selector-based E2E tests are brittle and expensive to maintain. The agent_e2e gem uses an OpenAI agent to drive a real Chromium browser via Playwright, executing natural-language test cases.
-**Decision:** Use agent_e2e (TelosLabs/agent_e2e) for E2E testing. Test cases are written as plain English in `agent-tests/tests.md`. The agent reads pages, decides actions, and reports pass/fail — no CSS selectors to maintain. Uses `letter_opener_web` for email flow testing.
-**Consequences:** E2E tests are easier to write (plain English) and more resilient to UI changes. Requires an `OPENAI_API_KEY` to run. CI needs the key as a secret. Tests are non-deterministic by nature — the AI agent may occasionally make different decisions. Add `data-testid` attributes to interactive elements for reliability.
+**Decision:** ~~Use agent_e2e (TelosLabs/agent_e2e) for E2E testing.~~ Removed in favor of built-in agent browser tools.
+**Consequences:** No additional gem dependency for E2E testing. Browser-based QA is handled by the agent's own tools at development time.
