@@ -22,7 +22,6 @@ Where things live and what they do.
 | `db/` | Migrations and schema (SQLite3) |
 | `spec/` | RSpec tests — request specs, model specs, service specs |
 | `docs/` | Project documentation (patterns, architecture, decisions) |
-| `agent-tests/` | AI-powered E2E tests — Playwright + OpenAI agent (agent_e2e) |
 
 ## Key Files
 

@@ -1,4 +1,30 @@
 {
   "model": "opus",
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true,
+    "compound-engineering@compound-engineering-plugin": true,
+    "layered-rails@palkan-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "compound-engineering-plugin": {
+      "source": {
+        "source": "github",
+        "repo": "EveryInc/compound-engineering-plugin"
+      }
+    },
+    "palkan-skills": {
+      "source": {
+        "source": "github",
+        "repo": "palkan/skills"
+      }
+    }
+  }
 }

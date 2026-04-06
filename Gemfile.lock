@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/TelosLabs/agent_e2e.git
-  revision: 8c2d226e94af79e0111aaf60def246be5a430344
-  specs:
-    agent_e2e (0.1.0)
-      letter_opener_web (~> 3.0)
-      railties (>= 7.0)
-
-GIT
   remote: https://github.com/TelosLabs/rubocop-harness.git
   revision: e737028fad106ecb84e291b37889b80f4315344c
   specs:
@@ -602,7 +594,6 @@ PLATFORMS
 DEPENDENCIES
   action_policy
   activeadmin
-  agent_e2e!
   bootsnap
   brakeman
   bundler-audit
@@ -614,6 +605,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  letter_opener_web (~> 3.0)
   propshaft
   puma (>= 5.0)
   rails (>= 8.1)
@@ -654,7 +646,6 @@ CHECKSUMS
   activestorage (8.1.3) sha256=0564ce9309143951a67615e1bb4e090ee54b8befed417133cae614479b46384d
   activesupport (8.1.3) sha256=21a5e0dfbd4c3ddd9e1317ec6a4d782fa226e7867dc70b0743acda81a1dca20e
   addressable (2.8.9) sha256=cc154fcbe689711808a43601dee7b980238ce54368d23e127421753e46895485
-  agent_e2e (0.1.0)
   arbre (1.7.0) sha256=20c76c26390924422407aa8eb849ae859b903a95bb9c19eb2f8e05fe1e40c83d
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   axiom-types (0.1.1) sha256=c1ff113f3de516fa195b2db7e0a9a95fd1b08475a502ff660d04507a09980383
