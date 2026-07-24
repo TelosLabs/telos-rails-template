@@ -41,3 +41,6 @@
 /agent-tests/node_modules
 /agent-tests/failures.md
 /agent-tests/screenshots
+
+.claude/settings.local.json
+ci_summary.md
